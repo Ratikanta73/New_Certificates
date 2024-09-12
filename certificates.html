@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Display</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: #000000; */
+            background: rgb(196,174,238);
+            background: radial-gradient(circle, rgba(196,174,238,1) 0%, rgba(20,2,28,1) 100%);
+        }
+
+        .fullscreen-image {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .fullscreen-image img {
+            max-width: 100%;
+            max-height: 90%;
+            object-fit: contain;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #downloadBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2a8aff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #downloadBtn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-image">
+        <img id="certificateImage" src="" alt="Certificate">
+        <button id="downloadBtn">Download Certificate</button>
+    </div>
+
+    <script>
+        // Get the certificate image file from the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const certFile = urlParams.get('cert');
+
+        // Set the image source to the appropriate certificate file
+        const certificateImage = document.getElementById('certificateImage');
+        if (certFile) {
+            certificateImage.src = certFile;
+        } else {
+            alert("No certificate found.");
+        }
+
+        // Handle the download button
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.download = certFile;
+            link.href = certificateImage.src;
+            link.click();
+        });
+    </script>
+</body>
+</html>

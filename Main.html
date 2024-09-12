@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVOPS TRAINING Certificate Verification</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            /* background: rgb(124,77,110);
+background: radial-gradient(circle, rgba(124,77,110,1) 0%, rgba(20,2,28,1) 100%); */
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            border-radius: 15px;
+            background: #fff;
+            /* background: rgb(201,210,255);
+background: radial-gradient(circle, rgba(201,210,255,1) 0%, rgba(244,220,255,1) 100%); */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(233, 11, 11, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #5b0707;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            color: #471818;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #6f0000;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fc3939;
+            /* background: rgb(36,0,0);
+background: linear-gradient(90deg, rgba(36,0,0,1) 0%, rgba(121,9,9,1) 35%, rgba(105,0,0,1) 100%); */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #ff6060;
+            /* background: rgb(226,98,98);
+background: linear-gradient(90deg, rgba(226,98,98,1) 0%, rgba(255,111,111,1) 44%, rgba(250,156,156,1) 100%);
+            color: black; */
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #430000;
+        }
+
+        /* Responsive Design */
+        @media only screen and (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 15px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DevOps Training Certificate Verification</h1>
+        <form id="verificationForm">
+            <label for="StudentName">Student Name:</label>
+            <input type="text" id="StudentName" name="StudentName" required>
+            
+            <label for="WorkshopDuration">Duration of Workshop:</label>
+            <input type="text" id="WorkshopDuration" name="WorkshopDuration" required value="July - August">
+
+            <label for="CertificateID">Certificate ID:</label>
+            <input type="text" id="CertificateID" name="CertificateID" required placeholder="Enter unique certificate ID">
+            
+            <button type="submit">Verify</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('verificationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const studentName = document.getElementById('StudentName').value.toLowerCase().replace(/\s/g, '_');
+            const workshopDuration = document.getElementById('WorkshopDuration').value;
+            const certificateID = document.getElementById('CertificateID').value.toLowerCase();
+            
+            // Simulated certificate database
+            const studentData = {
+                "aditya_prakash_swain": {
+                    name: "Aditya Prakash Swain",
+                    duration: "July - August",
+                    certID: "Aditya9419",
+                    certFile: "rk.png"
+                },
+                "Ayush_Kumar": {
+                    name: "Ayush Kumar",
+                    duration: "July - August",
+                    certID: "Ayush1148",
+                    certFile: "rk.png"
+                }
+                // Add more entries here as needed
+            };
+
+            const student = studentData[studentName];
+            const isValid = student && student.duration === workshopDuration && student.certID === certificateID;
+
+            if (isValid) {
+                document.getElementById('result').innerHTML = `
+                    <h2>Certificate Verified</h2>
+                    <p><strong>Name:</strong> ${student.name}</p>
+                    <p><strong>Duration:</strong> ${student.duration}</p>
+                    <p><strong>Certificate ID:</strong> ${student.certID}</p>
+                    <a href="certificates.html?cert=${student.certFile}" target="_blank">
+                        <button>View Certificate</button>
+                    </a>
+                `;
+            } else {
+                document.getElementById('result').innerHTML = `<p>Certificate not found. Please check the details.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
